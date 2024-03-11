@@ -1,0 +1,11 @@
+# Mac OS specific
+.DS_Store
+
+# JetBrains specific
+.idea
+.user.yml
+
+# dbt-specific
+target/
+dbt_packages/
+logs/

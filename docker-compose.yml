@@ -1,0 +1,15 @@
+#Postgres deployment
+version: '3.1'
+services:
+    db:
+        image: postgres:16-alpine
+        container_name: postgres
+        environment:
+          POSTGRES_USER: qualifyze
+          POSTGRES_PASSWORD: qualifyze
+          POSTGRES_DB: qualifyze
+        ports:
+        - "5432:5432"
+        volumes:
+        - ./db-data:/var/lib/postgresql/data
+        restart: always

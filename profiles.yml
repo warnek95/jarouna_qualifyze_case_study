@@ -1,0 +1,19 @@
+qualifyze:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      user: qualifyze
+      password: qualifyze
+      port: 5432
+      dbname: qualifyze
+      schema: dbt_jarouna
+    prd:
+      type: postgres
+      host: localhost
+      user: qualifyze
+      password: qualifyze
+      port: 5432
+      dbname: qualifyze
+      schema: qualifyze
