@@ -1,0 +1,13 @@
+version: 2
+saved_queries:
+  - name: organizations_kpis_all_time
+    description: Organization KPIs with all time data.
+    query_params:
+      metrics:
+        - audit_requests_paid_with_credit_package_count
+        - audit_requests_paid_without_credit_package_count
+        - credit_package_count
+        - fully_used_credit_package_count
+        - expired_partially_used_credit_package_count
+      group_by:
+        - Dimension('organization__app_organization_id')

@@ -1,0 +1,40 @@
+version: 2
+semantic_models:
+  - name: audit_requests
+    defaults:
+      agg_time_dimension: audit_request_signature_date
+    description: "Audit Requests semantic model."
+    model: ref('fact_audit_requests')
+
+    entities:
+      - name: audit_request
+        type: primary
+        expr: app_audit_request_id
+      - name: organization
+        type: foreign
+        expr: app_organization_id
+
+    measures:
+      - name: audit_request_count
+        agg: count
+        expr: app_audit_request_id
+      - name: audit_request_price_eur
+        agg: sum
+      - name: earliest_audit_request_signature_date
+        agg: min
+        expr: audit_request_signature_date
+      - name: latest_audit_request_signature_date
+        agg: max
+        expr: audit_request_signature_date
+
+    dimensions:
+      - name: audit_request_signature_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: audit_type
+        type: categorical
+      - name: request_state
+        type: categorical
+      - name: is_audit_request_paid_with_credit_package
+        type: categorical

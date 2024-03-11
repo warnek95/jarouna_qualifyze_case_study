@@ -1,0 +1,20 @@
+version: 2
+semantic_models:
+  - name: organizations
+    defaults:
+      agg_time_dimension: app_organization_creation_date
+    description: "Organizations semantic model."
+    model: ref('dim_organizations')
+
+    entities:
+      - name: organization
+        type: primary
+        expr: app_organization_id
+
+    dimensions:
+      - name: app_organization_creation_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: app_organization_id
+        type: categorical

@@ -1,0 +1,41 @@
+version: 2
+metrics:
+  - name: earliest_credit_package_start_date
+    description: "The earliest credit package start date."
+    type: simple
+    label: Earliest credit package start date
+    type_params:
+      measure: earliest_credit_package_start_date
+
+  - name: latest_credit_package_end_date
+    description: "The latest credit package end date."
+    type: simple
+    label: Latest credit package end date
+    type_params:
+      measure: latest_credit_package_end_date
+
+  - name: credit_package_count
+    description: "The number of credit packages."
+    type: simple
+    label: Credit package count
+    type_params:
+      measure: credit_package_count
+
+  - name: fully_used_credit_package_count
+    description: "The number of fully used credit packages."
+    type: simple
+    label: Fully used credit package count
+    type_params:
+      measure: credit_package_count
+    filter: |
+      {{ Dimension('credit_package__is_credit_package_fully_used') }} IS TRUE
+
+  - name: expired_partially_used_credit_package_count
+    description: "The number of expired partially used credit packages."
+    type: simple
+    label: Expired partially used credit package count
+    type_params:
+      measure: credit_package_count
+    filter: |
+      {{ Dimension('credit_package__is_credit_package_expired') }} IS TRUE
+      AND {{ Dimension('credit_package__is_credit_package_fully_used') }} IS FALSE

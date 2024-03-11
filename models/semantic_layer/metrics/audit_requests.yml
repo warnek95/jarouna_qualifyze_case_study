@@ -1,0 +1,19 @@
+version: 2
+metrics:
+  - name: audit_requests_paid_with_credit_package_count
+    description: "The number of audit requests paid with a credit package."
+    type: simple
+    label: Audit requests paid with credit package count
+    type_params:
+      measure: audit_request_count
+    filter: |
+      {{ Dimension('audit_request__is_audit_request_paid_with_credit_package') }} IS TRUE
+
+  - name: audit_requests_paid_without_credit_package_count
+    description: "The number of audit requests paid without a credit package."
+    type: simple
+    label: Audit requests paid without credit package count
+    type_params:
+      measure: audit_request_count
+    filter: |
+      {{ Dimension('audit_request__is_audit_request_paid_with_credit_package') }} IS FALSE

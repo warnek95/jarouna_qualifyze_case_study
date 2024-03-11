@@ -14,14 +14,15 @@ repos:
   - id: check-model-has-properties-file
     name: Check property file exist for each model
     files: ^models/
+    exclude: ^models/semantic_layer/saved_queries
   - id: check-model-has-description
     name: Check the model has a description
     files: ^models/
-    exclude: ^models/saved_queries
+    exclude: ^models/semantic_layer/saved_queries
   - id: check-model-has-all-columns
     name: Check model has all columns in property file
     files: ^models/
-    exclude: ^models/saved_queries
+    exclude: ^models/semantic_layer/saved_queries
   - id: check-column-name-contract
     name: Check some column names follow a regex
     files: ^models/

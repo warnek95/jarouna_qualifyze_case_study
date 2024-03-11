@@ -1,0 +1,44 @@
+version: 2
+semantic_models:
+  - name: credit_packages
+    defaults:
+      agg_time_dimension: credit_package_start_date
+    description: "Credit Packages semantic model."
+    model: ref('fact_credit_packages')
+
+    entities:
+      - name: credit_package
+        type: primary
+        expr: app_credit_package_id
+      - name: organization
+        type: foreign
+        expr: app_organization_id
+
+    measures:
+      - name: credit_package_count
+        agg: count
+        expr: app_credit_package_id
+      - name: credit_package_total_value_eur
+        agg: sum
+      - name: earliest_credit_package_start_date
+        agg: min
+        expr: credit_package_start_date
+      - name: latest_credit_package_end_date
+        agg: max
+        expr: credit_package_end_date
+
+    dimensions:
+      - name: credit_package_start_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: credit_package_end_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: payment_cycle
+        type: categorical
+      - name: is_credit_package_expired
+        type: categorical
+      - name: is_credit_package_fully_used
+        type: categorical

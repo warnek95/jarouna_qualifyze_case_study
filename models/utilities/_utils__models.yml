@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: metricflow_time_spine
+    description: Time spine needed for the Metricflow.
+    columns:
+      - name: date_day
+      - name: date_month
+      - name: date_quarter
+      - name: date_week
+      - name: date_year
