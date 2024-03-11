@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: organizations_bigtable
+    description: Table with all the relevant information about organizations.
+    columns:
+      # Organization
+      - name: app_organization_id
+        description: '{{ doc("_app_organization_id") }}'
+        tests:
+          - unique:
+              config:
+                severity: error
+          - not_null:
+              config:
+                severity: error
+      - name: app_organization_name
+        description: '{{ doc("_app_organization_name") }}'
+        tests:
+          - not_null
+      - name: app_organization_creation_date
+      - name: has_organization_switched_to_subscription_model
+      # Audit request
+      - name: audit_requests_paid_with_credit_package_count
+        description: "The number of audit requests paid with a credit package."
+      - name: audit_requests_paid_without_credit_package_count
+        description: "The number of audit requests paid without a credit package."
+      # Credit package
+      - name: credit_package_count
+        description: "The number of credit packages."
+      - name: fully_used_credit_package_count
+        description: "The number of fully used credit packages."
+      - name: expired_partially_used_credit_package_count
+        description: "The number of expired partially used credit packages."
