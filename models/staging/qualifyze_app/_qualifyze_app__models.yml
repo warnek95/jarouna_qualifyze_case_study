@@ -1,0 +1,126 @@
+version: 2
+
+models:
+  - name: stg_app__audit_requests
+    description: Staging table for the audit requests from the Qualifyze app.
+    columns:
+      # Primary key
+      - name: app_audit_request_id
+        description: '{{ doc("_app_audit_request_id") }}'
+        tests:
+          - unique:
+              config:
+                severity: error
+          - not_null:
+              config:
+                severity: error
+      # Foreign keys
+      - name: app_audit_id
+        description: '{{ doc("_app_audit_id") }}'
+        tests:
+          - not_null
+      - name: app_organization_id
+        description: '{{ doc("_app_organization_id") }}'
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_app__organizations')
+              field: app_organization_id
+      # Strings
+      - name: app_customer_name
+        description: '{{ doc("_app_customer_name") }}'
+      - name: app_supplier_country
+        description: '{{ doc("_app_supplier_country") }}'
+      - name: app_supplier_name
+        description: '{{ doc("_app_supplier_name") }}'
+      - name: audit_request_audited_product
+        description: '{{ doc("audit_request_audited_product") }}'
+      - name: audit_request_state
+        description: '{{ doc("audit_request_state") }}'
+        tests:
+          - accepted_values:
+              values: ['AUDIT_DATE_AVAILABLE', 'AUDIT_PREPARATION', 'AUDIT_PERFORMED', 'CONTACT_DETAILS_AVAILABLE', 'CONTRACT_SIGNED', 'REPORT_AVAILABLE']
+      - name: audit_request_type
+        description: '{{ doc("audit_request_type") }}'
+        tests:
+          - accepted_values:
+              values: ['EXISTING_AUDIT', 'NEW_AUDIT']
+      # Numerics
+      - name: audit_request_payment_term_days
+        description: '{{ doc("audit_request_payment_term_days") }}'
+      - name: audit_request_price_eur
+        description: '{{ doc("audit_request_price_eur") }}'
+      # Booleans
+      - name: is_audit_request_for_existing_audit
+      # Dates
+      - name: audit_request_authorization_request_date
+      - name: audit_request_confirmation_date
+      - name: audit_request_creation_date
+      - name: audit_request_report_publication_date
+      - name: audit_request_selected_audit_date
+      - name: audit_request_signature_date
+
+  - name: stg_app__credit_packages
+    description: Staging table for the credit packages from the Qualifyze app.
+    columns:
+      # Primary key
+      - name: app_credit_package_id
+        description: '{{ doc("_app_credit_package_id") }}'
+        tests:
+          - unique:
+              config:
+                severity: error
+          - not_null:
+              config:
+                severity: error
+      # Foreign keys
+      - name: app_organization_id
+        description: '{{ doc("_app_organization_id") }}'
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_app__organizations')
+              field: app_organization_id
+      - name: app_subscription_id
+        description: '{{ doc("_app_subscription_id") }}'
+        tests:
+          - not_null
+      # Strings
+      - name: credit_package_payment_cycle
+        description: '{{ doc("credit_package_payment_cycle") }}'
+        tests:
+          - accepted_values:
+              values: ['monthly', 'yearly', 'quarterly']
+      # Numerics
+      - name: credit_package_total_value_eur
+        description: '{{ doc("credit_package_total_value_eur") }}'
+      - name: credit_package_credits_amount
+        description: '{{ doc("credit_package_credits_amount") }}'
+      # Booleans
+      - name: is_credit_package_expired
+      - name: is_credit_package_payment_cycle_monthly
+      # Dates
+      - name: credit_package_signature_date
+      - name: credit_package_start_date
+      - name: credit_package_end_date
+
+  - name: stg_app__organizations
+    description: Staging table for the organizations from the Qualifyze app.
+    columns:
+      # Primary key
+      - name: app_organization_id
+        description: '{{ doc("_app_organization_id") }}'
+        tests:
+          - unique:
+              config:
+                severity: error
+          - not_null:
+              config:
+                severity: error
+      # Strings
+      - name: app_organization_name
+        description: '{{ doc("_app_organization_name") }}'
+        tests:
+          - not_null
+      # Dates
+      - name: app_organization_creation_date
